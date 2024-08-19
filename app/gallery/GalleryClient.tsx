@@ -180,6 +180,9 @@ const ImageGallery = memo(({ images, handleDelete }: ImageGalleryProps) => {
   );
 });
 
+ImageGallery.displayName = 'ImageGallery'; // Add this line
+
+
 type ImageGalleryProps = {
   images: ImageType[];
   handleDelete: (id: number) => void;
@@ -213,5 +216,8 @@ const Pagination: React.FC<{
     </div>
   );
 };
+
+Pagination.displayName = 'Pagination'; // Add this line
+
 
 export default GalleryClient;

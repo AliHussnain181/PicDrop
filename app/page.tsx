@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Home() {
@@ -37,7 +38,7 @@ export default function Home() {
             </div>
           </div>
           <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <img
+            <Image width={1000} height={100} loading="lazy"  
               className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
               src="https://media.istockphoto.com/id/2149530993/photo/digital-human-head-concept-for-ai-metaverse-and-facial-recognition-technology.webp?b=1&s=170667a&w=0&k=20&c=lULwqJMRIROARRAlmkWZHm_tPs7z4uK1Ri6X6k5QisI="
               alt="Gallery"

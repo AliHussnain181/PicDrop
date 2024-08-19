@@ -1,6 +1,7 @@
 "use client";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
 import { useState, ChangeEvent, useCallback, useRef, useMemo } from "react";
 
 // Define the expected response type
@@ -66,19 +67,19 @@ export default function Upload() {
       },
     });
 
-  const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    if (file && file.size > maxFileSize) {
-      setFeedbackMessage(
-        "File size exceeds 5MB. Please choose a smaller file."
-      );
-      return;
-    }
-
-    setSelectedFile(file);
-    setPreview(file ? URL.createObjectURL(file) : null);
-  }, []);
-
+    const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0] || null;
+      if (file && file.size > maxFileSize) {
+        setFeedbackMessage(
+          "File size exceeds 5MB. Please choose a smaller file."
+        );
+        return;
+      }
+    
+      setSelectedFile(file);
+      setPreview(file ? URL.createObjectURL(file) : null);
+    }, [maxFileSize]);
+    
   const handleUpload = useCallback(() => {
     if (selectedFile) {
       uploadMutation.mutate(selectedFile);
@@ -89,10 +90,13 @@ export default function Upload() {
     return (
       preview && (
         <div className="mt-6 text-center">
-          <img
+          <Image
             className="mx-auto h-40 w-40 rounded-md object-cover"
             src={preview}
             alt="Preview"
+            width={160} // Set appropriate width
+            height={160} // Set appropriate height
+            layout="intrinsic" // Or use 'responsive' based on your needs
           />
         </div>
       )
