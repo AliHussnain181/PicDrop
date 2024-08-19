@@ -48,10 +48,41 @@ export const UploadCloudinary = async (
 };
 
 export const deleteCloudinaryImage = async (image: string): Promise<void> => {
-  try {
+  try {    
     await cloudinary.uploader.destroy(image);
-    console.log("Image deleted successfully");
+    // console.log("Image deleted successfully");
   } catch (error) {
     console.error("Cloudinary delete failed:", (error as Error).message);
+  }
+};
+
+export const getPublicIdFromUrl = (url: string): string | null => {
+  try {
+    // Ensure the URL is a valid string
+    if (typeof url !== "string" || !url.trim()) {
+      throw new Error("Invalid URL provided");
+    }
+
+    // Extract the public ID from the URL
+    const urlSegments = url.split('/');
+    const lastSegment = urlSegments[urlSegments.length - 1];
+
+    // Validate if the last segment exists and contains a dot (.)
+    if (!lastSegment || !lastSegment.includes('.')) {
+      throw new Error("URL does not contain a valid public ID segment");
+    }
+
+    // Split the last segment to isolate the public ID (before the dot)
+    const publicId = lastSegment.split('.')[0];
+
+    // Ensure the public ID is not empty
+    if (!publicId) {
+      throw new Error("Failed to extract public ID from the URL");
+    }
+
+    return publicId;
+  } catch (error) {
+    console.error((error as Error).message);
+    return null;
   }
 };
